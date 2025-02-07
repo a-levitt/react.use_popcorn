@@ -66,3 +66,5 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.box::-webkit-scrollbar, .list::-webkit-scrollbar {   display: none;   scroll-behavior: smooth; }
