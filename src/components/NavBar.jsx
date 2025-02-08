@@ -1,5 +1,5 @@
-import SearchBar from "./SearchBar";
-import Logo from "./Logo";
+import SearchBar from "./SearchBar.jsx";
+import Logo from "./Logo.jsx";
 import NumResults from "./NumResults.jsx";
 
 function NavBar() {
