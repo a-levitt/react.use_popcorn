@@ -1,24 +1,13 @@
-import {useState} from "react";
+import SearchBar from "./SearchBar";
+import Logo from "./Logo";
+import NumResults from "./NumResults.jsx";
 
 function NavBar() {
-    const [query, setQuery] = useState("");
-
     return (
         <nav className="nav-bar">
-            <div className="logo">
-                <span role="img">🍿</span>
-                <h1>usePopcorn</h1>
-            </div>
-            <input
-                className="search"
-                type="text"
-                placeholder="Search movies..."
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-            />
-            <p className="num-results">
-                Found <strong>{/*{movies.length}*/}X</strong> results
-            </p>
+            <Logo />
+            <SearchBar />
+            <NumResults />
         </nav>
     )
 }
