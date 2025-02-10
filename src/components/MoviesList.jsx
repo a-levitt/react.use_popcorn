@@ -1,9 +1,8 @@
-import {useState} from "react";
-import {tempMovieData} from "../MoviesData.js";
+
 import Movie from "./Movie.jsx";
 
-function MoviesList() {
-    const [movies, setMovies] = useState(tempMovieData);
+function MoviesList({movies}) {
+
 
     return (
         <ul className="list">
