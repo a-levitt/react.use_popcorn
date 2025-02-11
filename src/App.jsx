@@ -10,6 +10,7 @@ import SearchBar from "./components/SearchBar.jsx";
 import NumResults from "./components/NumResults.jsx";
 import Box from "./components/Box.jsx";
 import MoviesList from "./components/MoviesList.jsx";
+import StarRating from "./components/StarRating.jsx";
 
 export default function App() {
     const [movies, setMovies] = useState(tempMovieData);
@@ -36,6 +37,7 @@ export default function App() {
 
                 <Box>
                         <WatchedSummary watched={watched} />
+                        <StarRating maxRating={10} />
                         <WatchedList watched={watched} />
                 </Box>
             </Main>
