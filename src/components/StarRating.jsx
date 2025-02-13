@@ -2,6 +2,7 @@ import {useState} from "react";
 
 export default function StarRating({maxRating = 5}) {
     const [rating, setRating] = useState(0);
+    const [tempRating, setTempRating] = useState(0);
 
     return (
         <div className="rating">
@@ -10,23 +11,29 @@ export default function StarRating({maxRating = 5}) {
                     <Star
                         key={i}
                         onRate={() => setRating(i+1)}
-                        full={rating >= i+1}
+                        full={tempRating ?
+                            tempRating >= i+1 :
+                            rating >= i+1}
+                        onHoverIn={() => setTempRating(i+1)}
+                        onHoverOut={() => setTempRating(0)}
                     />
                 ))}
             </div>
             <p>
-                {rating || ""}
+                {tempRating || rating || ""}
             </p>
         </div>
     )
 }
 
-function Star({onRate, full}) {
+function Star({onRate, full, onHoverIn, onHoverOut}) {
     return (
         <span
             role="button"
             className="star"
             onClick={onRate}
+            onMouseEnter={onHoverIn}
+            onMouseLeave={onHoverOut}
         >
         {full ?
             (<svg

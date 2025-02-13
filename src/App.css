@@ -294,9 +294,10 @@ body {
 }
 
 .star {
-  width: 48px;
-  height: 48px;
+  width: 34px;
+  height: 34px;
   display: inline-block;
+  align-items: center;
   cursor: pointer;
 }
 
