@@ -37,7 +37,7 @@ export default function App() {
 
                 <Box>
                         <WatchedSummary watched={watched} />
-                        <StarRating maxRating={10} />
+                        <StarRating maxRating={10} size={34} />
                         <WatchedList watched={watched} />
                 </Box>
             </Main>

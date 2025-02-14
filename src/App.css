@@ -288,17 +288,7 @@ body {
   margin-bottom: 0.8rem;
   font-weight: 600;
   display: flex;
-  flex-direction: column;
   gap: 2.4rem;
-
-}
-
-.star {
-  width: 34px;
-  height: 34px;
-  display: inline-block;
-  align-items: center;
-  cursor: pointer;
 }
 
 .btn-add {
