@@ -1,7 +1,7 @@
 import './App.css'
 import NavBar from './components/Navbar';
 import Main from './components/Main';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {tempMovieData} from "./MoviesData.js";
 import {tempWatchedData} from "./MoviesData.js";
 import WatchedSummary from "./components/WatchedSummary.jsx";
@@ -11,10 +11,17 @@ import NumResults from "./components/NumResults.jsx";
 import Box from "./components/Box.jsx";
 import MoviesList from "./components/MoviesList.jsx";
 import StarRating from "./components/StarRating.jsx";
+import {KEY} from "./secured/APIKey.js";
 
 export default function App() {
     const [movies, setMovies] = useState(tempMovieData);
     const [watched, setWatched] = useState(tempWatchedData);
+
+    useEffect(() => {
+        fetch(`http://www.omdbapi.com/?apikey=${KEY}&s='Fullmetal alchemist'`)
+            .then((res) => res.json())
+            .then(data => setMovies(data.Search))
+    }, [])
 
     return (
         <>
