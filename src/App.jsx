@@ -44,6 +44,13 @@ export default function App() {
                 setIsLoading(false);
             }
         }
+
+        if (query.length < 3) {
+            setMovies([]);
+            setErr("");
+            return
+        }
+
         fetchMovies();
     }, [query])
 
