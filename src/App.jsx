@@ -14,6 +14,7 @@ import StarRating from "./components/StarRating.jsx";
 import Loader from "./components/Loader.jsx";
 import {KEY} from "./secured/APIKey.js";
 import ErrorMessage from "./components/ErrorMessage.jsx";
+import MovieDetails from "./components/MovieDetails.jsx";
 
 export default function App() {
     const [query, setQuery] = useState("");
@@ -21,6 +22,7 @@ export default function App() {
     const [watched, setWatched] = useState(tempWatchedData);
     const [isLoading, setIsLoading] = useState(false);
     const [err, setErr] = useState("");
+    const [selectedId, setSelectedId] = useState(null);
 
     useEffect(function ()  {
         async function fetchMovies() {
@@ -54,6 +56,14 @@ export default function App() {
         fetchMovies();
     }, [query])
 
+    function handleSelectMovie(id) {
+        setSelectedId(selectedId=> id === selectedId ? null : id);
+    }
+
+    function handleCloseMovie() {
+        setSelectedId(null);
+    }
+
     return (
         <>
             <NavBar>
@@ -72,14 +82,20 @@ export default function App() {
                 <Box>
                     {/*{isLoading ? <Loader/> : <MoviesList movies={movies}/>}*/}
                     {isLoading && <Loader />}
-                    {!isLoading && !err && <MoviesList movies={movies}/>}
+                    {!isLoading && !err && <MoviesList movies={movies} onSelectMovie={handleSelectMovie} />}
                     {err && <ErrorMessage message={err}/>}
                 </Box>
 
                 <Box>
-                        <WatchedSummary watched={watched} />
-                        <StarRating maxRating={10} size={34} />
-                        <WatchedList watched={watched} />
+                    {
+                        selectedId ?
+                            <MovieDetails selectedId={selectedId}  onCloseMovie={handleCloseMovie} /> :
+                        <>
+                            <WatchedSummary watched={watched}/>
+                            <StarRating maxRating={10} size={34}/>
+                            <WatchedList watched={watched}/>
+                        </>
+                    }
                 </Box>
             </Main>
         </>
