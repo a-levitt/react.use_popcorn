@@ -11,18 +11,22 @@ import NumResults from "./components/NumResults.jsx";
 import Box from "./components/Box.jsx";
 import MoviesList from "./components/MoviesList.jsx";
 import StarRating from "./components/StarRating.jsx";
+import Loader from "./components/Loader.jsx";
 import {KEY} from "./secured/APIKey.js";
 
 export default function App() {
     const [movies, setMovies] = useState([])/*(tempMovieData)*/;
     const [watched, setWatched] = useState(tempWatchedData);
+    const [isLoading, setIsLoading] = useState(false);
     const query = 'Fullmetal alchemist';
 
     useEffect(function ()  {
         async function fetchMovies() {
+            setIsLoading(true);
             const res = await fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=${query}`);
             const data = await res.json();
             setMovies(data.Search);
+            setIsLoading(false);
         }
         fetchMovies();
     }, [])
@@ -43,7 +47,7 @@ export default function App() {
                     </>
                 } />*/}
                 <Box>
-                    <MoviesList movies={movies} />
+                    {isLoading ? <Loader/> : <MoviesList movies={movies}/>}
                 </Box>
 
                 <Box>
