@@ -16,16 +16,17 @@ import {KEY} from "./secured/APIKey.js";
 import ErrorMessage from "./components/ErrorMessage.jsx";
 
 export default function App() {
+    const [query, setQuery] = useState("");
     const [movies, setMovies] = useState([])/*(tempMovieData)*/;
     const [watched, setWatched] = useState(tempWatchedData);
     const [isLoading, setIsLoading] = useState(false);
     const [err, setErr] = useState("");
-    const query = 'Fullmetal alchemist';
 
     useEffect(function ()  {
         async function fetchMovies() {
             try {
                 setIsLoading(true);
+                setErr("");
                 const res = await fetch(`https://www.omdbapi.com/?apikey=${KEY}&s=${query}`);
 
                 if (!res.ok) throw new Error(res.statusText);
@@ -44,12 +45,12 @@ export default function App() {
             }
         }
         fetchMovies();
-    }, [])
+    }, [query])
 
     return (
         <>
             <NavBar>
-                <SearchBar />
+                <SearchBar query={query} setQuery={setQuery} />
                 <NumResults movies={movies} />
             </NavBar>
 
