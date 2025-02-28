@@ -17,7 +17,7 @@ import ErrorMessage from "./components/ErrorMessage.jsx";
 import MovieDetails from "./components/MovieDetails.jsx";
 
 export default function App() {
-    const [query, setQuery] = useState("");
+    const [query, setQuery] = useState("Who");
     const [movies, setMovies] = useState([])/*(tempMovieData)*/;
     const [watched, setWatched] = useState(tempWatchedData);
     const [isLoading, setIsLoading] = useState(false);
