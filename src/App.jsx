@@ -3,7 +3,7 @@ import NavBar from './components/Navbar';
 import Main from './components/Main';
 import {useEffect, useState} from "react";
 // import {tempMovieData} from "./MoviesData.js";
-import {tempWatchedData} from "./MoviesData.js";
+// import {tempWatchedData} from "./MoviesData.js";
 import WatchedSummary from "./components/WatchedSummary.jsx";
 import WatchedList from "./components/WatchedList.jsx";
 import SearchBar from "./components/SearchBar.jsx";
@@ -19,7 +19,7 @@ import MovieDetails from "./components/MovieDetails.jsx";
 export default function App() {
     const [query, setQuery] = useState("Who");
     const [movies, setMovies] = useState([])/*(tempMovieData)*/;
-    const [watched, setWatched] = useState(tempWatchedData);
+    const [watched, setWatched] = useState([])/*(tempWatchedData)*/;
     const [isLoading, setIsLoading] = useState(false);
     const [err, setErr] = useState("");
     const [selectedId, setSelectedId] = useState(null);
@@ -64,6 +64,10 @@ export default function App() {
         setSelectedId(null);
     }
 
+    function handleAddWatched(movie) {
+        setWatched(watched => [...watched, movie]);
+    }
+
     return (
         <>
             <NavBar>
@@ -89,7 +93,11 @@ export default function App() {
                 <Box>
                     {
                         selectedId ?
-                            <MovieDetails selectedId={selectedId}  onCloseMovie={handleCloseMovie} /> :
+                            <MovieDetails
+                                selectedId={selectedId}
+                                onCloseMovie={handleCloseMovie}
+                                onAddWatched={handleAddWatched}
+                            /> :
                         <>
                             <WatchedSummary watched={watched}/>
                             <StarRating maxRating={10} size={34}/>

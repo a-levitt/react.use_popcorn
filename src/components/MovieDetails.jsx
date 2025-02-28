@@ -3,7 +3,7 @@ import {KEY} from "../secured/APIKey.js";
 import StarRating from "./StarRating.jsx";
 import Loader from "./Loader.jsx";
 
-function MovieDetails({selectedId, onCloseMovie}) {
+function MovieDetails({selectedId, onCloseMovie, onAddWatched}) {
     const [movie, setMovie] = useState({});
     const [isLoading, setIsLoading] = useState(false);
 
@@ -11,6 +11,20 @@ function MovieDetails({selectedId, onCloseMovie}) {
         Runtime: runtime, imdbRating, Plot: plot,
         Released: released, Actors: actors,
         Director: director, Genre: genre } = movie;
+
+    function handleAdd() {
+        const newWatchedMovie = {
+            imdbId: selectedId,
+            title,
+            year,
+            poster,
+            imdbRating: Number(imdbRating),
+            runtime: Number(runtime.split(' ').at(0))
+        }
+
+        onAddWatched(newWatchedMovie);
+        onCloseMovie();
+    }
 
     useEffect(function (){
         async function getMovieDetails() {
@@ -33,7 +47,7 @@ function MovieDetails({selectedId, onCloseMovie}) {
                     </button>
                     <img src={poster} alt={`Poster of ${title}`} />
                     <div className="details-overview">
-                        <h2>{title}</h2>
+                        <h2>{`${title} (${year})`}</h2>
                         <p>{released} &bull; {runtime}</p>
                         <p>{genre}</p>
                         <p>
@@ -45,6 +59,8 @@ function MovieDetails({selectedId, onCloseMovie}) {
                 <section>
                     <div className="rating">
                         <StarRating maxRating={10} size={25}/>
+
+                        <button className="btn-add" onClick={handleAdd}>+ Add to list</button>
                     </div>
                     <p><em>{plot}</em></p>
                     <p>Starring {actors}</p>
