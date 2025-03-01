@@ -43,6 +43,11 @@ function MovieDetails({selectedId, onCloseMovie, onAddWatched, watched}) {
         getMovieDetails();
     }, [selectedId])
 
+    useEffect(function (){
+        if (!title || !year) return;
+        document.title = `${title} (${year})`;
+    }, [title, year])
+
     return (
         <div className="details">
             {isLoading ? <Loader/> :
