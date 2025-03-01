@@ -23,6 +23,30 @@ export default function App() {
     const [err, setErr] = useState("");
     const [selectedId, setSelectedId] = useState(null);
 
+    function handleSelectMovie(id) {
+        setSelectedId(selectedId=> id === selectedId ? null : id);
+    }
+
+    function handleCloseMovie() {
+        setSelectedId(null);
+    }
+
+    function handleAddWatched(movie) {
+        setWatched(watched => [...watched, movie]);
+    }
+
+    function handleDeleteWatched(id) {
+        setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
+    }
+
+    useEffect(function (){
+        document.addEventListener('keydown', function(e) {
+            if (e.code === 'Escape') {
+                handleCloseMovie();
+            }
+        })
+    }, [])
+
     useEffect(function ()  {
         const controller = new AbortController();
 
@@ -64,22 +88,6 @@ export default function App() {
             controller.abort();
         }
     }, [query])
-
-    function handleSelectMovie(id) {
-        setSelectedId(selectedId=> id === selectedId ? null : id);
-    }
-
-    function handleCloseMovie() {
-        setSelectedId(null);
-    }
-
-    function handleAddWatched(movie) {
-        setWatched(watched => [...watched, movie]);
-    }
-
-    function handleDeleteWatched(id) {
-        setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
-    }
 
     return (
         <>
