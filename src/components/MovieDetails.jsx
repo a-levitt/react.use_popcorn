@@ -46,6 +46,10 @@ function MovieDetails({selectedId, onCloseMovie, onAddWatched, watched}) {
     useEffect(function (){
         if (!title || !year) return;
         document.title = `${title} (${year})`;
+
+        return function () {
+            document.title = "usePopcorn";
+        }
     }, [title, year])
 
     return (
