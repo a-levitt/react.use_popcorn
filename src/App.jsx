@@ -10,7 +10,6 @@ import SearchBar from "./components/SearchBar.jsx";
 import NumResults from "./components/NumResults.jsx";
 import Box from "./components/Box.jsx";
 import MoviesList from "./components/MoviesList.jsx";
-import StarRating from "./components/StarRating.jsx";
 import Loader from "./components/Loader.jsx";
 import {KEY} from "./secured/APIKey.js";
 import ErrorMessage from "./components/ErrorMessage.jsx";
@@ -68,6 +67,10 @@ export default function App() {
         setWatched(watched => [...watched, movie]);
     }
 
+    function handleDeleteWatched(id) {
+        setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
+    }
+
     return (
         <>
             <NavBar>
@@ -94,6 +97,7 @@ export default function App() {
                     {
                         selectedId ?
                             <MovieDetails
+                                key={selectedId}
                                 selectedId={selectedId}
                                 onCloseMovie={handleCloseMovie}
                                 onAddWatched={handleAddWatched}
@@ -101,8 +105,8 @@ export default function App() {
                             /> :
                         <>
                             <WatchedSummary watched={watched}/>
-                            <StarRating maxRating={10} size={34}/>
-                            <WatchedList watched={watched}/>
+                            {/*<StarRating maxRating={10} size={34}/>*/}
+                            <WatchedList watched={watched} onDeleteWatched={handleDeleteWatched} />
                         </>
                     }
                 </Box>
