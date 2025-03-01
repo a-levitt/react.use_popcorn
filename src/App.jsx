@@ -39,14 +39,6 @@ export default function App() {
         setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
     }
 
-    useEffect(function (){
-        document.addEventListener('keydown', function(e) {
-            if (e.code === 'Escape') {
-                handleCloseMovie();
-            }
-        })
-    }, [])
-
     useEffect(function ()  {
         const controller = new AbortController();
 
