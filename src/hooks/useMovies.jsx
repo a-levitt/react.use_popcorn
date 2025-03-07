@@ -1,12 +1,14 @@
 import {useEffect, useState} from "react";
 import {KEY} from "../secured/APIKey.js";
 
-function useMovies(query) {
+function useMovies(query, callback) {
     const [movies, setMovies] = useState([])/*(tempMovieData)*/;
     const [isLoading, setIsLoading] = useState(false);
     const [err, setErr] = useState("");
 
     useEffect(function ()  {
+        callback?.();
+
         const controller = new AbortController();
 
         async function fetchMovies() {
